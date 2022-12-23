@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	io "godog/io"
+	io "godog/io_cardreader"
 	mqtt "godog/mqtt"
 )
 

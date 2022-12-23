@@ -1,4 +1,4 @@
-package io_code
+package io_cardreader
 
 import (
 	"fmt"
