@@ -48,25 +48,4 @@ func StartMQTTserver(publishchan chan (Mqtt_message)) {
 			token.Wait()
 		}
 	}
-	/*
-			topic := "topic/secret"
-			topic_wildcard := "topic/#"
-			token = client.Subscribe(topic_wildcard, 1, nil)
-			token.Wait()
-			fmt.Printf("Subscribed to topic %s\n", topic_wildcard)
-
-				num := 10
-				for i := 0; i < num; i++ {
-					text := fmt.Sprintf("%d", i)
-					token = client.Publish(topic, 0, false, text)
-					token.Wait()
-					time.Sleep(time.Second)
-				}
-
-		for {
-
-		}
-
-		client.Disconnect(100)
-	*/
 }

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	io_button "godog/io_buttons"
 	io_card "godog/io_cardreader"
 	mqtt "godog/mqtt"
@@ -14,14 +13,12 @@ func main() {
 	HIDPath := io_card.CheckForCardreader()
 	cardreader := io_card.ConnectToCardReader(HIDPath)
 	gpiochip := io_button.CheckForGPIOchip()
-
+	// ---- start up goroutines ----
+	go mqtt.StartMQTTserver(transmitchan)
 	go io_card.ReadFromCardReaderAndTransmit(*cardreader, transmitchan)
 	go io_button.PollButtonsAndTransmit(gpiochip, transmitchan)
 	for {
-		select {
-		case x := <-transmitchan: //Transmit incoming messages
-			fmt.Printf("Received from chan, topic: %s, message %s.\n", x.Topic, x.Message)
-		}
+		select {}
 	}
 	/*fmt.Println(cardreader.DeviceInfo)
 	fmt.Println("new-code")
