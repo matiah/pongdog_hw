@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	io "godog/io_cardreader"
+	io_card "godog/io_cardreader"
 	mqtt "godog/mqtt"
 )
 
@@ -10,10 +10,10 @@ func main() {
 
 	transmitchan := make(chan mqtt.Mqtt_message, 10)
 
-	io.CheckIfRoot()
-	HIDPath := io.CheckForCardreader()
-	cardreader := io.ConnectToCardReader(HIDPath)
-	go io.ReadFromCardReaderAndTransmit(*cardreader, transmitchan)
+	io_card.CheckIfRoot()
+	HIDPath := io_card.CheckForCardreader()
+	cardreader := io_card.ConnectToCardReader(HIDPath)
+	go io_card.ReadFromCardReaderAndTransmit(*cardreader, transmitchan)
 	for {
 		select {
 		case x := <-transmitchan:
