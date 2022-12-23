@@ -33,7 +33,7 @@ func PollButtonsAndTransmit(gpiochip string, outputChan chan<- mqtt.Mqtt_message
 	}
 }
 func notify(line int, timestamp time.Duration) {
-	fmt.Printf("%s - Rising edge detected, button %d\n", timestamp, line)
+	fmt.Printf("%d - Rising edge detected, button %d\n", int(timestamp.Seconds()), line)
 	var mqttmessage mqtt.Mqtt_message
 	mqttmessage.Topic = "input/button"
 	mqttmessage.Message = fmt.Sprint(line)

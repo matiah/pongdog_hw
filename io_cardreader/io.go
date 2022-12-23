@@ -54,7 +54,7 @@ func ReadFromCardReaderAndTransmit(cardreader hid.Device, outputChan chan<- mqtt
 		if size > 0 && b[2] > 0 {
 			if b[2] == 40 || counter == 10 {
 				counter = 0
-				fmt.Printf("-----------------\n Card detected: \n")
+				fmt.Printf("-----------------\nCard detected: \n")
 				fmt.Printf("Rawnumber = %s\n", outputString)
 				output := reverseBytes(outputString)
 				outputChan <- convertToMqttMessage(output)
@@ -80,7 +80,7 @@ func reverseBytes(inputstring string) string {
 		output += reverse(subslice)
 	}
 	result, _ := strconv.ParseInt(output, 2, 32)
-	fmt.Printf("EM-number = %d\n", result)
+	fmt.Printf("EM-number = %d\n-----------------\n", result)
 	return strconv.Itoa(int(result))
 }
 
