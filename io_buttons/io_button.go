@@ -24,7 +24,7 @@ func handler(evt gpiod.LineEvent) {
 
 func PollButtonsAndTransmit(gpiochip string, outputChan chan<- mqtt.Mqtt_message) {
 	l, _ := gpiod.RequestLine(gpiochip, rpi.J8p37, gpiod.AsInput, gpiod.WithPullUp, gpiod.AsActiveLow, gpiod.WithEventHandler(handler), gpiod.WithRisingEdge, gpiod.WithDebounce(time.Millisecond*20))
-	fmt.Println(l)
+	fmt.Println("✓ Found GPIO-chip: " + l.Chip())
 	for {
 		select {
 		case internalMessage := <-internalChan:

@@ -24,7 +24,7 @@ func CheckForCardreader() hid.DeviceInfo {
 	if len(devicelist) == 0 {
 		log.Fatal("Cardreader not detected. Exiting.")
 	} else {
-		fmt.Println("Found cardreader: " + devicelist[0].Product)
+		fmt.Println("✓ Found cardreader: " + devicelist[0].Product)
 	}
 	return devicelist[0]
 }
