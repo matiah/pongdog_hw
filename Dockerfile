@@ -8,5 +8,5 @@ RUN go mod download
 COPY . ./
 
 RUN go build
-
+EXPOSE 1883
 CMD [ "./godog" ]
