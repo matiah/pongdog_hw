@@ -1,4 +1,3 @@
-#FROM golang:1.18-alpine
 FROM balenalib/raspberry-pi-debian-golang:latest
 
 WORKDIR /godog
