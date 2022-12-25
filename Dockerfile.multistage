@@ -1,0 +1,21 @@
+## Build
+FROM balenalib/raspberry-pi-debian-golang:latest as build
+
+WORKDIR /godog
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
+
+COPY . ./
+
+RUN go build -o /godog
+
+
+## Deploy
+FROM gcr.io/distroless/static-debian11
+
+WORKDIR /
+
+COPY --from=build /godog /godog
+
+ENTRYPOINT ["./godog"]
