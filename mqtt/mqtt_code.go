@@ -25,7 +25,7 @@ var connectionLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, 
 
 // Establishes an MQTT-connection to Mosquitto (127.0.0.1:1883) and publishes any message sent to the publischan-channel. Messages must use the Mqtt_message struct format.
 func StartMQTTserver(publishchan chan (Mqtt_message)) {
-	var broker = "127.0.0.1:1883"
+	var broker = "0.0.0.0:1883"
 	options := mqtt.NewClientOptions()
 	options.AddBroker(broker)
 	options.SetClientID("goDog_mqtt")
