@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    volumes:
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+    expose:
+      - 1883
+    ports:
+      - 1883:1883
+      - 9001:9001
+  pongdog:
+    image: matiah/pongdog-hw:multistage
+    container_name: pongdog-hw
+    network_mode: host
+    volumes:
+      - ./pongdog:/data
+    privileged: true
+    depends_on:
+      - mosquitto
+    restart: unless-stopped
