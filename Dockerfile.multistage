@@ -1,22 +1,24 @@
+## This is a multistage dockerfile for a smaller container at run-time.
 ## Build
 FROM balenalib/raspberry-pi-debian-golang:latest as build
 
-WORKDIR /app
+WORKDIR /godog
 COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
 COPY . ./
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o /app/godog
-
+RUN go build
 
 ## Deploy
-FROM arm32v7/alpine:latest
+FROM balenalib/raspberry-pi-debian:latest-run
 
 WORKDIR /
 
-COPY --from=build app/godog app/godog
-WORKDIR /app
+COPY --from=build /godog /godog
+WORKDIR /godog
+EXPOSE 1883
+ENV UDEV=1
 
 ENTRYPOINT ["./godog"]

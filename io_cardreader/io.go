@@ -20,6 +20,8 @@ func CheckIfRoot() {
 
 // Checks whether the RFID card reader is connected. Returns the path to the cardreader if found.
 func CheckForCardreader() hid.DeviceInfo {
+	wholelist := hid.Enumerate(0, 0)
+	fmt.Println(wholelist)
 	devicelist := hid.Enumerate(65535, 53)
 	if len(devicelist) == 0 {
 		log.Fatal("Cardreader not detected. Exiting.")
